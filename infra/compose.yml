@@ -1,0 +1,10 @@
+name: cutway
+
+services:
+  proxy:
+    build: ./proxy
+    ports: ["8080:80"]
+  web:
+    build: ../apps/web
+  api:
+    build: ../apps/api
