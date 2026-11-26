@@ -1,0 +1,16 @@
+{
+  // Esconde da árvore de arquivos.
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.git": true
+  },
+  // Ignora na busca (Ctrl+Shift+F) e no "Go to File" (Ctrl+P).
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bun.lock": true
+  },
+  // Não observa mudanças nesses diretórios (menos uso de CPU).
+  "files.watcherExclude": {
+    "**/node_modules/**": true
+  }
+}

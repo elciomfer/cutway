@@ -1,0 +1,26 @@
+# Railway injeta $PORT; localmente usa 80.
+:{$PORT:80} {
+	redir / /web/
+	redir /web /web/
+
+	# UI -> web (sem o prefixo /web)
+	handle_path /web/* {
+		reverse_proxy {$WEB_UPSTREAM:web:3000}
+	}
+
+	# API -> api
+	handle /api/* {
+		reverse_proxy {$API_UPSTREAM:api:8000}
+	}
+
+	# /<slug> -> api /redirect/<slug>
+	@slug path_regexp slug ^/([A-Za-z0-9_-]{1,64})$
+	handle @slug {
+		rewrite * /redirect/{re.slug.1}
+		reverse_proxy {$API_UPSTREAM:api:8000}
+	}
+
+	handle {
+		respond 404
+	}
+}
